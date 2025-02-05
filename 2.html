@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purchase Confirmation</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: pink;
+            overflow: hidden;
+            position: relative;
+        }
+        h1 {
+            margin-top: 50px;
+            color: red;
+        }
+        h4 {
+            margin: 20px;
+        }
+        img {
+            margin-top: 20px;
+            width: 400px;
+            border-radius: 10px;
+            position: relative;
+            z-index: 1;
+        }
+        .floating {
+            position: absolute;
+            font-size: 80px;
+            opacity: 1;
+            animation: float 5s linear infinite;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            z-index: 2;
+        }
+        @keyframes float {
+            from { transform: translateY(100vh); opacity: 1; }
+            to { transform: translateY(-10vh); opacity: 0; }
+        }
+        .firework {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: white;
+            border-radius: 50%;
+            animation: explode 1s ease-out forwards;
+            z-index: 3;
+        }
+        @keyframes explode {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(5); opacity: 0; }
+        }
+        .firework-explosion {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            animation: burst 1.5s forwards;
+        }
+        @keyframes burst {
+            0% { transform: scale(0); opacity: 1; }
+            50% { transform: scale(1.5); opacity: 0.8; }
+            100% { transform: scale(3); opacity: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1> Valentine Order confirmed!❤️</h1>
+    <h4> Message from the sender: "Very fragile product. Please handle with love and care. No return or refund possible. If product malfunctions, beat it with a stick hard. মাইরের উপর ঔষধ নাই।" </h4>
+    <img src="image.jpg">
+    
+    <script>
+        function createFloatingElement(type) {
+            let element = document.createElement("div");
+            element.classList.add("floating");
+            element.style.left = Math.random() * 100 + "vw";
+            element.style.top = Math.random() * 100 + "vh";
+            element.style.animationDuration = Math.random() * 3 + 3 + "s";
+            element.style.fontSize = "80px"; 
+
+            let hearts = ["❤️", "💙", "💜", "💚", "💛", "🧡", "🤍", "🖤"];
+            let balloons = ["🎈", "🎈", "🎈", "🎈", "🎈", "🎈", "🎈", "🎈"];
+
+            if (type === "heart") {
+                element.innerHTML = hearts[Math.floor(Math.random() * hearts.length)];
+                element.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            } else if (type === "balloon") {
+                element.innerHTML = balloons[Math.floor(Math.random() * balloons.length)];
+                element.style.color = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            }
+
+            document.body.appendChild(element);
+            setTimeout(() => element.remove(), 5000);
+        }
+
+        function createFirework() {
+            const fireworkContainer = document.createElement("div");
+            fireworkContainer.style.position = "absolute";
+            fireworkContainer.style.left = Math.random() * 100 + "vw";
+            fireworkContainer.style.top = Math.random() * 100 + "vh";
+            document.body.appendChild(fireworkContainer);
+
+            const particleCount = 30;
+            const colors = ["#ff0000", "#00ff00", "#0000ff", "#ffff00", "#ff00ff", "#00ffff"];
+
+            // Create the explosion
+            const explosion = document.createElement("div");
+            explosion.classList.add("firework-explosion");
+            explosion.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+            explosion.style.left = "0";
+            explosion.style.top = "0";
+            fireworkContainer.appendChild(explosion);
+
+            // Add particles
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement("div");
+                particle.classList.add("firework");
+                particle.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                particle.style.left = "0";
+                particle.style.top = "0";
+                particle.style.transform = `translate(${Math.cos((i / particleCount) * 2 * Math.PI) * 100}px, ${Math.sin((i / particleCount) * 2 * Math.PI) * 100}px)`;
+                fireworkContainer.appendChild(particle);
+            }
+
+            setTimeout(() => fireworkContainer.remove(), 1500); // Remove firework after animation
+        }
+
+        setInterval(() => createFloatingElement("heart"), 800);
+        setInterval(() => createFloatingElement("balloon"), 1200);
+        setInterval(createFirework, 100); // Fireworks every 2 seconds
+    </script>
+</body>
+</html>
