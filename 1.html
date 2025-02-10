@@ -50,10 +50,10 @@
     
     <script>
         function moveButton(btn) {
-            let maxX = window.innerWidth - btn.clientWidth - 10; // Prevent out-of-bounds right
-            let maxY = window.innerHeight - btn.clientHeight - 10; // Prevent out-of-bounds bottom
-            let x = Math.max(10, Math.random() * maxX); // Ensure at least 10px from left
-            let y = Math.max(10, Math.random() * maxY); // Ensure at least 10px from top
+            let maxX = window.innerWidth - btn.clientWidth - 200; // Prevent out-of-bounds right
+            let maxY = window.innerHeight - btn.clientHeight - 200; // Prevent out-of-bounds bottom
+            let x = Math.max(50, Math.random() * maxX); // Ensure at least 10px from left
+            let y = Math.max(50, Math.random() * maxY); // Ensure at least 10px from top
 
             btn.style.left = `${x}px`;
             btn.style.top = `${y}px`;
