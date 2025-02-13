@@ -39,6 +39,12 @@
             background-color: lightcoral;
             left: 55%;
         }
+        #message {
+            margin-top: 400px;
+            font-size: 40px;
+            font-weight: bolder;
+            color: white;
+        }
     </style>
 </head>
 <body>
@@ -47,13 +53,52 @@
         <button class="yes" onclick="location.href='2.html'">Yes</button>
         <button class="no" onmouseover="moveButton(this)">No</button>
     </div>
-    
+    <div id="message"></div>
+    <audio id="background-music" loop>
+        <source src="song2.mp3" type="audio/mpeg">
+    </audio>
     <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let audio = document.getElementById("background-music");
+
+            function playAudio() {
+                audio.play().then(() => {
+                    console.log("Audio is playing.");
+                }).catch(error => {
+                    console.log("Autoplay blocked, waiting for user interaction.");
+                });
+
+                document.removeEventListener("click", playAudio);
+            }
+
+            playAudio();
+            document.addEventListener("click", playAudio);
+        });
+
+        let hoverCount = 0;
+        let messages = [
+            "Why do you want to click no? 🥺",
+            "Do you still wanna reject? 😢",
+            "Mhhm you don't love me anymore now? 💔",
+            "Are you sure about that? 😟",
+            "Think again! I'm waiting... 💞",
+            "Don't make me cry... 😭",
+            "Last chance! Say yes! 🥰",
+            "You're breaking my heart! 💘",
+            "If you say no, I'll be sad forever! 💔"
+        ];
+
         function moveButton(btn) {
-            let maxX = window.innerWidth - btn.clientWidth - 200; // Prevent out-of-bounds right
-            let maxY = window.innerHeight - btn.clientHeight - 200; // Prevent out-of-bounds bottom
-            let x = Math.max(50, Math.random() * maxX); // Ensure at least 10px from left
-            let y = Math.max(50, Math.random() * maxY); // Ensure at least 10px from top
+            hoverCount++;
+            if (hoverCount % 5 === 0) {
+                let messageIndex = Math.floor(hoverCount / 5) % messages.length;
+                document.getElementById("message").innerText = messages[messageIndex];
+            }
+
+            let maxX = window.innerWidth - btn.clientWidth - 200; 
+            let maxY = window.innerHeight - btn.clientHeight - 200; 
+            let x = Math.max(50, Math.random() * maxX); 
+            let y = Math.max(50, Math.random() * maxY);
 
             btn.style.left = `${x}px`;
             btn.style.top = `${y}px`;
